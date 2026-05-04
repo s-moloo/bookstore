@@ -1,35 +1,9 @@
-Django + HTMX
-CRUD Operations & Search with Class-Based Views
+# Django + HTMX
+## CRUD Operations & Search with Class-Based Views
+### Library Project Tutorial
 
-Book Store
+---
 
-List of Stores, Books and Author
-
-1. Create and activate a virtual environment
-
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# macOS / Linux
-python -m venv venv
-source venv/bin/activate
-
-2. Install Django
-
-pip install django
-
-3. Create the project and app
-
-django-admin startproject bookstore .
-python manage.py startapp book
-
-4. Register the app in settings.py
-
-INSTALLED_APPS = [
-    # ... Django built-ins ...
-    'store',
-]
 
 <img width="477" height="223" alt="image" src="https://github.com/user-attachments/assets/2a258b91-3b71-4450-8d83-866a2b25004c" />
 
