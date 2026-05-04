@@ -1,0 +1,11 @@
+{% extends 'store/base.html' %}
+{% block title %}{% if object %}Edit Author{% else %}Add Author{% endif %}{% endblock %}
+{% block content %}
+<h1>{% if object %}Edit {{ object }}{% else %}Add an Author{% endif %}</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+  <a href="{% url 'author-list' %}">Cancel</a>
+</form>
+{% endblock %}

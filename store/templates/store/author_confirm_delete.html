@@ -1,0 +1,11 @@
+{% extends 'store/base.html' %}
+{% block title %}Delete Author{% endblock %}
+{% block content %}
+<h1>Delete {{ object }}?</h1>
+<p>Are you sure you want to delete this author? This cannot be undone.</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Yes, delete</button>
+  <a href="{% url 'author-list' %}">Cancel</a>
+</form>
+{% endblock %}

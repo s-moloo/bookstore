@@ -1,0 +1,26 @@
+{# This template renders with NO extends — it is a fragment, not a full page #}
+<table border="1">
+  <tr>
+    <th>Book</th><th>Year</th><th>Price</th>
+    <th>Store</th><th>Author</th><th>Actions</th>
+  </tr>
+  {% for book in books %}
+    <tr id="book-{{ book.pk }}">
+      <td>{{ book.title }}</td>
+      <td>{{ book.year }}</td>
+      <td>${{ book.price }}</td>
+      <td>
+        <a href="{% url 'store-detail' book.store.pk %}">
+          {{ book.store.name }}
+        </a>
+      </td>
+      <td>{{ book.author }}</td>
+      <td>
+        <a href="{% url 'book-update' book.pk %}">Edit</a> |
+        <a href="{% url 'book-delete' book.pk %}">Delete</a>
+      </td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="6">No books found.</td></tr>
+  {% endfor %}
+</table>

@@ -1,0 +1,29 @@
+{% extends 'store/base.html' %}
+{% block title %}Authors{% endblock %}
+{% block content %}
+<h1>Authors</h1>
+<a href="{% url 'author-create' %}">+ Add Author</a>
+<table border="1">
+  <tr>
+    <th>Name</th><th>Stores</th><th>Active</th><th>Actions</th>
+  </tr>
+  {% for author in authors %}
+    <tr>
+      <td>
+        <a href="{% url 'author-detail' author.pk %}">{{ author }}</a>
+      </td>
+      <td>
+        {# author.stores is a ManyToManyField — iterate like any QuerySet #}
+        {% for store in author.stores.all %}
+          {{ store.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{ author.is_active|yesno:"Yes,No" }}</td>
+      <td>
+        <a href="{% url 'author-update' author.pk %}">Edit</a> |
+        <a href="{% url 'author-delete' author.pk %}">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'store/base.html' %}
+{% block title %}{{ author }}{% endblock %}
+{% block content %}
+<h1>{{ author.first_name }} {{ author.last_name }}</h1>
+<p>Status: {% if author.is_active %}Active{% else %}Inactive{% endif %}</p>
+
+<h2>Stores</h2>
+<ul>
+  {% for store in author.stores.all %}
+    <li><a href="{% url 'store-detail' store.pk %}">{{ store.name }}</a></li>
+  {% empty %}
+    <li>No stores assigned.</li>
+  {% endfor %}
+</ul>
+
+<h2>Books Managed</h2>
+<ul>
+  {% for book in books %}
+    <li>{{ book.title }} by {{ book.author }}</li>
+  {% empty %}
+    <li>No books assigned.</li>
+  {% endfor %}
+</ul>
+<br>
+<a href="{% url 'author-list' %}">Back to Authors</a>
+{% endblock %}

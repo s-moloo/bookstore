@@ -1,0 +1,51 @@
+{% extends 'store/base.html' %}
+{% block title %}{{ store.name }}{% endblock %}
+{% block content %}
+<h1>{{ store.name }} — {{ store.city }}</h1>
+<p>Opened: {{ store.opened_date }}</p>
+<p>{{ store.notes }}</p>
+
+<h2>Active Authors books at this branch</h2>
+<ul>
+  {% for author in authors %}
+    {# author comes from ctx['authors'] = store.authors.filter(is_active=True) #}
+    <li>
+      <a href="{% url 'author-detail' author.pk %}">{{ author }}</a>
+    </li>
+  {% empty %}
+    <li>No active authors.</li>
+  {% endfor %}
+</ul>
+
+<h2>Authors books at this branch</h2>
+<a href="{% url 'book-create' %}">+ Add a book</a>
+<table border="1">
+  <tr>
+    <th>Book</th><th>Year</th><th>Price</th>
+    <th>Category</th><th>Author</th><th>Actions</th>
+  </tr>
+  {% for book in books %}
+    {# book comes from ctx['books'] = store.books.select_related('seller') #}
+    <tr id="book-{{ book.pk }}">
+      <td>{{ book.title }}</td>
+      <td>{{ book.year }}</td>
+      <td>${{ book.price }}</td>
+      <td>{{ book.category }}</td>
+      <td>{{ book.seller }}</td>
+      <td>
+        <a href="{% url 'book-update' book.pk %}">Edit</a>
+        <!-- HTMX inline delete: replaces #book-{{ book.pk }} with empty string -->
+        <button
+          hx-delete="{% url 'book-inline-delete' book.pk %}"
+          hx-target="#book-{{ book.pk }}"
+          hx-swap="outerHTML"
+          hx-confirm="Delete this book?">
+          Delete
+        </button>
+      </td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="6">No books at this branch.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
